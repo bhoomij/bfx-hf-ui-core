@@ -18,8 +18,10 @@ import NotificationsSidebar from '../NotificationsSidebar'
 
 import Routes from '../../constants/routes'
 import { isElectronApp } from '../../redux/config'
+import { storeAuthToken } from '../../util/browser'
 
 import './style.css'
+import { isDevEnv } from '../../util/autologin'
 
 const HFUI = ({
   authToken, getSettings, notificationsVisible, getFavoritePairs, currentMode, GAPageview,
@@ -71,6 +73,12 @@ const HFUI = ({
       subscribeAllTickers()
     }
   }, [authToken])
+
+  useEffect(() => {
+    if (!isElectronApp && isDevEnv()) {
+      storeAuthToken()
+    }
+  }, [])
 
   return (
     <>
