@@ -101,12 +101,18 @@ const getValidValue = val => {
   return val || ''
 }
 const processFieldData = ({ action, layout = {}, fieldData = {} }) => {
+  console.log('fieldData: ', fieldData)
+  console.log('layout: ', layout)
   const { fields = {} } = layout
   const data = {}
+  const errors = {}
 
   Object.keys(fieldData).forEach((fieldName) => {
     const rawValue = fieldData[fieldName]
+    const field = fields[fieldName]
     const C = COMPONENTS_FOR_ID[(fields[fieldName] || {}).component]
+    const { disabled } = field
+    let error = ''
 
     // TODO: Move this?
     const v = action === 'sell' && fieldName === 'amount'
@@ -116,8 +122,22 @@ const processFieldData = ({ action, layout = {}, fieldData = {} }) => {
     data[fieldName] = (C && C.processValue)
       ? C.processValue(v)
       : v
+    // console.log('data[fieldName]: ', fieldName, data[fieldName])
+
+    const processedValue = data[fieldName]
+
+    if ((_isBoolean(disabled) && disabled) || (_isBoolean(processedValue) && !processedValue)) {
+      error = null
+    } else {
+      error = (C && C.validateValue)
+        ? C.validateValue(processedValue)
+        : null
+    }
+
+    errors[fieldName] = error
   })
 
+  console.log('errors: ', errors)
   return data
 }
 
