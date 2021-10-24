@@ -9,15 +9,19 @@ import './style.css'
 import { getLocation } from '../../redux/selectors/router'
 
 const NavbarButton = ({
-  route, label, external,
+  route, label, external, href, onClick,
 }) => {
-  const { pathname } = useSelector(getLocation)
   const dispatch = useDispatch()
+  const { pathname } = useSelector(getLocation)
   const navigate = (path) => dispatch(push(path))
 
-  if (external) {
+  if (href) {
+    const anchorProps = external ? {
+      target: '_blank',
+      rel: 'noopener noreferrer',
+    } : {}
     return (
-      <a href={external} target='_blank' rel='noopener noreferrer'>
+      <a href={href} {...anchorProps}>
         {label}
       </a>
     )
@@ -27,7 +31,7 @@ const NavbarButton = ({
     <button
       type='button'
       className={ClassNames('hfui-navbarbutton', { active: pathname === route })}
-      onClick={route === pathname ? undefined : () => navigate(route)}
+      onClick={onClick || (route === pathname ? undefined : () => navigate(route))}
     >
       {label}
     </button>
@@ -39,12 +43,16 @@ NavbarButton.propTypes = {
   label: PropTypes.oneOfType([
     PropTypes.string, PropTypes.array, PropTypes.element,
   ]).isRequired,
-  external: PropTypes.string,
+  href: PropTypes.string,
+  external: PropTypes.bool,
+  onClick: PropTypes.func,
 }
 
 NavbarButton.defaultProps = {
-  external: '',
   route: '',
+  href: '',
+  external: false,
+  onClick: null,
 }
 
 export default memo(NavbarButton)

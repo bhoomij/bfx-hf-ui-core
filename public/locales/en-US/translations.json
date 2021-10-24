@@ -592,5 +592,8 @@
     "removeBtn": "Remove",
     "createBtn": "Create",
     "startBtn": "Start"
+  },
+  "nav": {
+    "signout": "Sign Out"
   }
 }

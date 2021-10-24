@@ -10,6 +10,7 @@ import NavbarLink from './Navbar.Link'
 import NavbarButton from './Navbar.Button'
 import SwitchMode from '../SwitchMode'
 
+import WSActions from '../../redux/actions/ws'
 import LayoutSettings from './Navbar.LayoutSettings'
 import AppSettings from './Navbar.AppSettings'
 import Routes from '../../constants/routes'
@@ -36,6 +37,25 @@ const Navbar = () => {
         ))}
       </ul>
       <div className='hfui-tradingpage__menu'>
+        {!isElectronApp && (
+          <div className='hosted-nav-links'>
+            {/* <div >{t('nav.signout')}</div> */}
+            <NavbarLink
+              onClick={() => dispatch(WSActions.send(['auth.logout']))}
+              label={t('nav.signout')}
+            />
+            {/* <p>{}</p> */}
+            {/* <NavbarButton
+              alt={t('nav.signout')}
+              icon='back-arrow'
+              onClick={() => dispatch(UIActions.switchNotifcationPanel())}
+            /> */}
+            {/* <NavbarLink
+              href='https://bfx-ui-trading.staging.bitfinex.com/'
+              label={t('nav.returnPlatform')}
+            /> */}
+          </div>
+        )}
         <div className='hfui-exchangeinfobar__buttons'>
           <LayoutSettings />
           <NavbarButton

@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 
 import { isElectronApp, appVersion } from '../../redux/config'
 
-import NavbarButton from '../Navbar/Navbar.Link'
+import NavbarLink from '../Navbar/Navbar.Link'
 import './style.css'
 
 const RELEASE_URL = 'https://github.com/bitfinexcom/bfx-hf-ui/releases'
@@ -36,9 +36,10 @@ const StatusBar = ({
         <div className='hfui-statusbar__left'>
           <p>
             {remoteVersion && remoteVersion !== appVersion && (
-              <NavbarButton
+              <NavbarLink
                 label={t('statusbar.updateToLast')}
-                external={RELEASE_URL}
+                href={RELEASE_URL}
+                external
               />
             )}
             &nbsp;
