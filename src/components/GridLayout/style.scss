@@ -1,4 +1,5 @@
-.react-grid-layout,
-.react-grid-item {
-  transition: none !important;
+.grid-spinner {
+  position: relative;
+  top: 45%;
+  transform: translateY(-100%);
 }

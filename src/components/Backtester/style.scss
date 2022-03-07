@@ -29,6 +29,19 @@ body.Light {
   }
 }
 
+body.hosted {
+  @media screen and (max-width: 600px) {
+    .hfui-backtester__executionform {
+      .hfui-backtester__flex_start {
+        align-self: auto;
+      }
+      .hfui-backtester_row {
+        flex-direction: column;
+      }
+    }
+  }
+}
+
 .hfui-backtester__executionform {
   display: flex;
   flex: 1;
@@ -57,7 +70,6 @@ body.Light {
     display: flex;
     flex: 1;
     align-self: flex-start;
-    justify-self: flex-start;
   }
   .hfui-select__outer {
     display: block;

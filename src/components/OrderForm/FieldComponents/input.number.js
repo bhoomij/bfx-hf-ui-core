@@ -1,5 +1,5 @@
 import React, { memo } from 'react'
-import cx from 'classnames'
+import cx from 'clsx'
 import _isFinite from 'lodash/isFinite'
 import PropTypes from 'prop-types'
 import { Tooltip } from '@ufx-ui/core'
@@ -52,8 +52,8 @@ NumberInput.displayName = 'NumberInput'
 
 NumberInput.DEFAULT_VALUE = ''
 NumberInput.processValue = v => +v
-NumberInput.validateValue = (v) => {
-  return _isFinite(+v) ? null : 'Must be a number'
+NumberInput.validateValue = (v, t) => {
+  return _isFinite(+v) ? null : t('orderForm.mustBeNumberMessage')
 }
 
 NumberInput.propTypes = {

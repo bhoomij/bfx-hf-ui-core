@@ -1,5 +1,22 @@
 @import "../../variables.scss";
 
+body.hosted {
+  @media screen and (max-width: 1120px) {
+    .hfui-navbar__wrapper {
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: auto;
+      padding-bottom: 15px;
+      padding-top: 10px;
+
+      .hfui-tradingpage__menu, .hfui-navbar__main-links {
+        justify-content: center;
+      }
+    }
+  }
+}
+
 .hfui-navbar__wrapper {
   width: 100%;
   display: flex;
@@ -102,6 +119,7 @@
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
+  flex-wrap: wrap;
   height: 100%;
 }
 

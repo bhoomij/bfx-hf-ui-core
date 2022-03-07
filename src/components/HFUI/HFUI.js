@@ -6,12 +6,12 @@ import {
   Route, Switch, Redirect, useLocation,
 } from 'react-router'
 import PropTypes from 'prop-types'
-import _isFunction from 'lodash/isFunction'
 
 import { THEMES, SETTINGS } from '../../redux/selectors/ui'
 import useInjectBfxData from '../../hooks/useInjectBfxData'
 import StrategyEditorPage from '../../pages/StrategyEditor'
 import NotificationsSidebar from '../NotificationsSidebar'
+import AppUpdate from '../AppUpdate'
 import closeElectronApp from '../../redux/helpers/close_electron_app'
 import Routes from '../../constants/routes'
 import { isElectronApp } from '../../redux/config'
@@ -28,10 +28,12 @@ const TradingModeModal = lazy(() => import('../../modals/TradingModeModal'))
 const BadConnectionModal = lazy(() => import('../../modals/BadConnectionModal'))
 const OldFormatModal = lazy(() => import('../../modals/OldFormatModal'))
 const AOPauseModal = lazy(() => import('../../modals/AOPauseModal'))
-const BestExperienceMessageModal = lazy(() => import('../../modals/BestExperienceMessageModal'))
 const CcyInfoModal = lazy(() => import('../../modals/CcyInfoModal'))
+const ClosePositionModal = lazy(() => import('../../modals/ClosePositionModal'))
 const ConfirmDMSModal = lazy(() => import('../../modals/ConfirmDMSModal'))
 const EditOrderModal = lazy(() => import('../../modals/EditOrderModal'))
+
+const ipcHelpers = window.electronService
 
 const HFUI = (props) => {
   const {
@@ -77,13 +79,11 @@ const HFUI = (props) => {
 
   useEffect(() => {
     // if running in the electron environment
-    if (_isFunction(window.require) && isElectronApp) {
-      const electron = window.require('electron')
-      const { ipcRenderer } = electron
-      ipcRenderer.on('app-close', onElectronAppClose)
+    if (ipcHelpers && isElectronApp) {
+      ipcHelpers.addAppCloseEventListener(onElectronAppClose)
 
       return () => {
-        ipcRenderer.removeListener('app-close', onElectronAppClose)
+        ipcHelpers.removeAppCloseEventListener(onElectronAppClose)
       }
     }
   }, [authToken, onElectronAppClose, settingsShowAlgoPauseInfo])
@@ -132,19 +132,18 @@ const HFUI = (props) => {
             {isElectronApp && Routes.strategyEditor && <Route path={Routes.strategyEditor.path} render={() => <StrategyEditorPage />} />}
             <Route path={Routes.marketData.path} render={() => <MarketDataPage />} />
           </Switch>
-          {isElectronApp ? (
+          {isElectronApp && (
             <>
               <TradingModeModal />
               <OldFormatModal />
               <ConfirmDMSModal />
               <AOPauseModal />
             </>
-          ) : (
-            <BestExperienceMessageModal />
           )}
           <BadConnectionModal />
           <CcyInfoModal />
           <EditOrderModal />
+          <ClosePositionModal />
         </>
       ) : (
         <>

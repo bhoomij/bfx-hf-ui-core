@@ -1,5 +1,5 @@
 import React, { memo } from 'react'
-import ClassNames from 'classnames'
+import ClassNames from 'clsx'
 import _isFinite from 'lodash/isFinite'
 import PropTypes from 'prop-types'
 
@@ -48,8 +48,8 @@ SliderInput.DEFAULT_VALUE = ''
 
 SliderInput.processValue = v => +v
 
-SliderInput.validateValue = (v) => {
-  return _isFinite(+v) ? null : 'Must be a number'
+SliderInput.validateValue = (v, t) => {
+  return _isFinite(+v) ? null : t('orderForm.mustBeNumberMessage')
 }
 
 SliderInput.displayName = 'SliderInput'

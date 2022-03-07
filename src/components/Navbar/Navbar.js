@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { memo, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Icon } from 'react-fa'
 import _values from 'lodash/values'
 import _map from 'lodash/map'
-import cx from 'classnames'
+import cx from 'clsx'
 
 import { useTranslation } from 'react-i18next'
 import HFIcon from '../../ui/HFIcon'
@@ -30,12 +30,12 @@ const Navbar = () => {
   const settingsTheme = useSelector(getThemeSetting)
   const themeIconName = settingsTheme === THEMES.DARK ? 'sun-o' : 'moon-o'
 
-  const switchTheme = () => {
+  const switchTheme = useCallback(() => {
     const nextTheme = settingsTheme === THEMES.DARK ? THEMES.LIGHT : THEMES.DARK
     dispatch(WSActions.saveSettings(SETTINGS.THEME, nextTheme))
     dispatch(GAActions.updateSettings())
     localStorage.setItem(SETTINGS.THEME, nextTheme)
-  }
+  }, [dispatch, settingsTheme])
 
   return (
     <div className='hfui-navbar__wrapper'>
@@ -88,4 +88,4 @@ const Navbar = () => {
   )
 }
 
-export default Navbar
+export default memo(Navbar)

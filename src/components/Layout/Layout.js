@@ -1,10 +1,9 @@
 import React from 'react'
-import cx from 'classnames'
+import cx from 'clsx'
 import './style.css'
 
 import Navbar from '../Navbar'
 import StatusBar from '../StatusBar'
-
 import { MIN_SAFE_WIDTH } from '../../constants/variables'
 
 // eslint-disable-next-line react/prop-types
@@ -42,7 +41,6 @@ Layout.Main = function Main({
     'is-flex': flex,
     'no-space-top': noSpaceTop,
   })
-
   const style = {
     minWidth: MIN_SAFE_WIDTH,
     ...styleProp,

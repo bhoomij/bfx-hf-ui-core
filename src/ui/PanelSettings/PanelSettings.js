@@ -1,5 +1,5 @@
 import React, { memo } from 'react'
-import ClassNames from 'classnames'
+import ClassNames from 'clsx'
 import PropTypes from 'prop-types'
 import { useTranslation } from 'react-i18next'
 
@@ -12,7 +12,11 @@ const PanelSettings = ({
   const { t } = useTranslation()
   return (
     <div className='hfui-panelsettings__wrapper'>
-      {title && (<p className='header'>{title}</p>)}
+      {title || (
+        <p className='header'>
+          {t('appSettings.title')}
+        </p>
+      )}
       {content && (
         <div className={ClassNames('inner')}>{content}</div>
       )}
@@ -34,7 +38,7 @@ PanelSettings.propTypes = {
 }
 
 PanelSettings.defaultProps = {
-  title: 'Settings',
+  title: null,
   onClose: () => { },
 }
 

@@ -175,6 +175,11 @@ export const changeBadInternetConnectionState = (isVisible) => ({
   payload: { isVisible },
 })
 
+export const changeClosePositionModalState = (isVisible, rowData = {}) => ({
+  type: types.CHANGE_CLOSE_POSITION_MODAL_STATE,
+  payload: { isVisible, rowData },
+})
+
 export const setIsOrderExecuting = (executing) => ({
   type: types.SET_IS_ORDER_EXECUTING,
   payload: { executing },
@@ -215,11 +220,6 @@ export const changeCcyInfoModalState = (isVisible) => ({
   payload: { isVisible },
 })
 
-export const setLanguage = language => ({
-  type: types.SET_LANGUAGE,
-  payload: { language },
-})
-
 export const setStrategyTab = tab => ({
   type: types.SET_STRATEGY_TAB,
   payload: { tab },
@@ -258,8 +258,8 @@ export default {
   changeOldFormatModalState,
   changeAOPauseModalState,
   changeCcyInfoModalState,
-  setLanguage,
   setStrategyTab,
   changeConfirmDMSModalState,
   changeEditOrderModalState,
+  changeClosePositionModalState,
 }

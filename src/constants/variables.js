@@ -1,4 +1,5 @@
-export const HF_UI_WEB_SHOW_BEST_EXPERIENCE_MODAL = 'HF_UI_WEB_SHOW_BEST_EXPERIENCE_MODAL'
-export const MIN_SAFE_WIDTH = 1200
+import { isElectronApp } from '../redux/config'
+
 export const MAX_STRATEGY_LABEL_LENGTH = 150
 export const DONT_SHOW_DMS_MODAL_KEY = 'HF_UI_DONT_SHOW_DMS_MODAL'
+export const MIN_SAFE_WIDTH = isElectronApp ? 1200 : 100

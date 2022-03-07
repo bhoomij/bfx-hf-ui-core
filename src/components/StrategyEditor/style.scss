@@ -1,8 +1,36 @@
 @import "../../variables.scss";
 
+body.hosted {
+  @media screen and (max-width: 600px) {
+    .hfui-strategyeditor__func-select {
+      flex-flow: row wrap;
+      margin-right: 0;
+  
+      li {
+        height: 35px !important;
+      }
+    }
+
+    .hfui-strategyeditor__wrapper {
+      flex-direction: column;
+    }
+
+    .hfui-strategyeditor__content-wrapper {
+      width: 100%;
+      height: 300px;
+      margin-top: 10px;
+    }
+    
+    .hfui-strategyeditor__panel {
+      .hfui-panel__left-container {
+        flex-direction: column;
+      }
+    }
+  }
+}
+
 .hfui-strategyeditor__wrapper {
   display: flex;
-  flex-direction: row;
   height: 100%;
 }
 
@@ -55,7 +83,6 @@
   flex-shrink: 0;
   font-size: 13px;
   margin-right: spacing(0.75);
-  width: 170px;
 
   li {
     display: flex;
@@ -192,7 +219,4 @@
       text-decoration: underline;
     }
   }
-}
-
-.hfui-strategyeditor__empty-content {
 }

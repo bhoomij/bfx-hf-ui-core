@@ -38,6 +38,9 @@
       "title": "冰山委托",
       "help": "冰山委托功能，允许您下达大笔订单时，系统仅显示订单的一小部份于挂单簿中，而大部分订单讲通过”隐藏剩余订单”功能执行。它最常见的用途是将大笔交易订单执行的市场影响最小化。"
     },
+    "visibleOnHit": "部分成交后取消隐藏",
+    "visibleOnHitHelp": "隐藏订单部分成交后，余下未成交部分将显示于订单簿中。",
+    "saveParamsSettings": "演算参数设置",
     "intervalDistortion": "区间失真％",
     "intervalDistortionHelp": "每笔订单区间失真的数量 (设置百分比）",
     "limitPrice": "价格",
@@ -328,12 +331,6 @@
     "hideZeroCheckbox": "隐藏无余额",
     "noBalances": "无可用余额"
   },
-  "bestExperienceMessageModal": {
-    "title": "最佳体验提醒",
-    "text1": "Honey Framework网页版设计为桌机版。为享有运用程式最佳体验，我们高度推荐使用桌机版。",
-    "text2": "建议采用横向模式使用应用程式。",
-    "text3": "敬启, Honey Framework 团队!"
-  },
   "chartModal": {
     "title": "图表"
   },
@@ -363,6 +360,7 @@
     "orderSubmittedBuyDetailed": "已创建{{exID}} {{type}} 的{{amount}}{{symbol}} 买单 (ID: {{id}})",
     "orderSubmittedSellAtDetailed": "已创建{{exID}} {{type}} 的{{amount}}{{symbol}} 卖单以{{price}} (ID: {{id}})",
     "orderSubmittedSellDetailed": "已创建{{exID}} {{type}} 的{{amount}}{{symbol}} 卖单 (ID: {{id}})",
+    "updatingOrderWithId": "更新订单中 (ID: {{orderId}})",
     "orderModifiedBuyAtDetailed": "已修改{{exID}} {{type}} 的{{amount}}{{symbol}} 买单以{{price}} (ID: {{id}})",
     "orderModifiedBuyDetailed": "已修改{{exID}} {{type}} 的{{amount}}{{symbol}} 买单 (ID: {{id}})",
     "orderModifiedSellAtDetailed": "已修改{{exID}} {{type}} 的{{amount}}{{symbol}} 卖单以{{price}} (ID: {{id}})",
@@ -371,6 +369,8 @@
     "orderPartiallyFilledBuyDetailed": "{{exID}}{{type}} 的{{amount}}{{symbol}} 买单已部分执行 (ID:{{id}})",
     "orderPartiallyFilledSellAtDetailed": "{{exID}}{{type}} 的{{amount}}{{symbol}} 卖单已以{{price}} 部分执行 (ID:{{id}})",
     "orderPartiallyFilledSellDetailed": "{{exID}}{{type}} 的{{amount}}{{symbol}} 卖单已部分执行 (ID:{{id}})",
+    "startedLiveStrategyExecution": "已开始执行真实交易策略 - ({{name}}) 于{{symbol}}-{{tf}}",
+    "stoppedLiveStrategyExecution": "已停止执行真实交易策略 - ({{name}}) 于{{symbol}}-{{tf}}",
     "stoppedAO": "已停止演算法订单",
     "startedAO": "已开始{{name}} 演算法订单以{{target}}",
     "unknownAlgoOrderId": "未知的演算法订单 ID:{{aoID}}",
@@ -407,6 +407,15 @@
     "title": "切换交易模式",
     "text": "切换至交易模式。点击Okay后将重启应用程式，并暂停待执行演算法订单。"
   },
+  "confirmDMSModal": {
+    "title": "启用失能开关",
+    "text": "请了解启用此设置后，关闭应用程式将会取消所有于Honey Framework、Bitfinex平台或其他地方所创建的待成交订单。\n\n此仅为建议设置，应了解启用时其相关影响。",
+    "dontShowAgain": "不再显示"
+  },
+  "editOrderModal": {
+    "title": "修改订单",
+    "noOrder": "尚未选取订单"
+  },
   "oldFormatModal": {
     "title": "版本升级",
     "text1": "自从更新至3.12.0的版本，我们已重新设计应用程式的版面操作方式。",
@@ -432,6 +441,7 @@
     "margin": "保证金交易",
     "derivatives": "衍生品交易",
     "fokTitle": "成交或取消",
+    "hidden": "隐藏单",
     "visibleOnHit": "部分成交后取消隐藏",
     "visibleOnHitHelp": "隐藏订单部分成交后，余下未成交部分将显示于订单簿中。",
     "fokHelp": "成交或取消单是限价单 ，用于完全执行订单否则直接取消。、",
@@ -462,7 +472,11 @@
     "laverage": "杠杆倍数",
     "stopPrice": "止损价",
     "limitPrice": "限价",
-    "distance": "距离"
+    "distance": "距离",
+    "greaterThan0Message": "必须大于0",
+    "invalidDateMessage": "无效日期",
+    "dateRequiredMessage": "“日期”栏位必填",
+    "mustBeNumberMessage": "必须为数字"
   },
   "orderHistoryModal": {
     "title": "订单历史记录",
@@ -585,7 +599,8 @@
       "preparing": "于执行前，进行与准备交易策略...",
       "realBalancesWarning": "提醒：点击开始后，您将通过真实账号与资金执行您的交易策略。",
       "createStrategy": "创建策略开始回测."
-    }
+    },
+    "candleSeedCount": "Candle Seed数量"
   },
   "ui": {
     "ok": "确定",
@@ -610,5 +625,63 @@
     "removeBtn": "移除",
     "createBtn": "创建",
     "startBtn": "开始"
+  },
+  "crashHandler": {
+    "text1": "错误发生，Honey Framework介面停止运作。请重启应用程式以继续使用。",
+    "text2_1": "请回报此问题于",
+    "text2_2": "我们将尽快修复此问题！",
+    "text3": "技术故障信息"
+  },
+  "orderContexts": {
+    "exchange": "现货交易",
+    "margin": "保证金交易",
+    "funding": "衍生品"
+  },
+  "balanceContexts": {
+    "exchange": "现货",
+    "margin": "保证金",
+    "funding": "衍生品",
+    "contribution": "筹募"
+  },
+  "orderStatuses": {
+    "ACTIVE": "待成交"
+  },
+  "chart": {
+    "trading": {
+      "order": {
+        "context": {
+          "exchange": "现货",
+          "margin": "保证金",
+          "derivative": "衍生品"
+        },
+        "tooltip": {
+          "type": "订单类型：{{type}}",
+          "context": "交易类型：{{context}}",
+          "amount": "数量：{{amount}}{{ccy}}",
+          "price": "价格：{{price}} {{ccy}}",
+          "distance": "间距: {{distance}}{{ccy}}",
+          "stopPrice": "止损价：{{stopPrice}}{{ccy}}",
+          "limitPrice": "限价: {{limitPrice}}{{ccy}}",
+          "leverage": "杠杆倍率：{{leverage}}",
+          "collateral": "保证金: {{collateral}}{{ccy}}",
+          "placed": "下单: {{placedDate}}"
+        },
+        "modifyTooltip": "修改订单",
+        "cancelTooltip": "取消订单"
+      },
+      "position": {
+        "label": "损益：%{pl} ({{plPercent}}%)",
+        "tooltip": {
+          "amount": "数量：{{amount}} {{ccy}}",
+          "basePrice": "基价: {{basePrice}}{{ccy}}",
+          "liqPrice": "清算价格：{{liquidationPrice}}{{ccy}}",
+          "pl": "损益：{{pl}}{{ccy}}",
+          "plPercent": "损益% {{plPercent}}%"
+        }
+      },
+      "liquidation": {
+        "label": "强制平仓"
+      }
+    }
   }
 }
