@@ -220,6 +220,7 @@
     // const { ipcRenderer } = require('electron')
     const logger = require('electron-log')
 
+    logger.log('window: ', window);
     window.electronService.addLoadingDescEventListener((event, description) => {
       try {
         logger.log('addLoadingDescEventListener: cb', description);
