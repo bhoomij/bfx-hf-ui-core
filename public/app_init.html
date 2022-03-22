@@ -208,6 +208,7 @@
 
 <script>
   window.addEventListener('load', () => {
+    console.log('window: load: ', window);
     const rollers = document.getElementsByClassName('lds-roller')
     const descriptionElem = document.getElementById('description')
 
@@ -220,7 +221,7 @@
     // const { ipcRenderer } = require('electron')
     const logger = require('electron-log')
 
-    logger.log('window: ', window);
+    logger.log('window.electronService: ', window.electronService);
     window.electronService.addLoadingDescEventListener((event, description) => {
       try {
         logger.log('addLoadingDescEventListener: cb', description);
