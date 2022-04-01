@@ -2,13 +2,11 @@ import React, { useCallback, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { Checkbox } from '@ufx-ui/core'
 import _isEmpty from 'lodash/isEmpty'
-import _startCase from 'lodash/startCase'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 
 import Input from '../../ui/Input'
 import Button from '../../ui/Button'
-import Dropdown from '../../ui/Dropdown'
 import {
   getStoredPassword,
   getAutoLoginState,
@@ -26,22 +24,13 @@ const initialAutoLoginSave = getAutoLoginState()
 
 const helpers = window.electronService
 
-const getModes = (t) => {
-  const MAIN_MODE_OPTION = { value: MAIN_MODE, label: `${t('main.production')} ${_startCase(t('main.mode'))}` }
-  const PAPER_MODE_OPTION = { value: PAPER_MODE, label: `${t('main.sandbox')} ${_startCase(t('main.mode'))}` }
-  return [MAIN_MODE_OPTION, PAPER_MODE_OPTION]
-}
-
 const AuthenticationUnlockForm = ({ isPaperTrading, onUnlock: _onUnlock, onReset }) => {
   const [password, setPassword] = useState('')
   const [autoLoginState, setAutoLoginState] = useState(initialAutoLoginSave)
-  const [mode, setMode] = useState(isPaperTrading ? PAPER_MODE : MAIN_MODE)
-  const submitReady = !_isEmpty(password) && !_isEmpty(mode)
+  const submitReady = !_isEmpty(password)
 
   const { t } = useTranslation()
   const isChangingAppMode = useSelector(getIsChangingAppMode)
-
-  const OPTIONS = getModes(t)
 
   const onUnlock = useCallback(() => {
     if (!submitReady) return
@@ -50,8 +39,8 @@ const AuthenticationUnlockForm = ({ isPaperTrading, onUnlock: _onUnlock, onReset
       updateAutoLoginState(autoLoginState)
     }
 
-    _onUnlock(password, mode)
-  }, [_onUnlock, autoLoginState, mode, password, submitReady])
+    _onUnlock(password, isPaperTrading ? PAPER_MODE : MAIN_MODE)
+  }, [_onUnlock, autoLoginState, isPaperTrading, password, submitReady])
 
   const onFormSubmit = (event) => {
     event.preventDefault()
@@ -97,18 +86,6 @@ const AuthenticationUnlockForm = ({ isPaperTrading, onUnlock: _onUnlock, onReset
           onChange={setPassword}
           shouldBeAutofocused
         />
-        <div className='hfui-authenticationpage__mode-select'>
-          <p>{t('auth.selectMode')}</p>
-
-          <Dropdown
-            className='hfui-authenticationpage__trading-mode'
-            placeholder={t('auth.selectMode')}
-            // eslint-disable-next-line lodash/prefer-lodash-method
-            value={OPTIONS.find(o => o.value === mode)?.value}
-            options={OPTIONS}
-            onChange={(value) => setMode(value)}
-          />
-        </div>
         {isDevEnv && (
           <div className='hfui-authenticationpage__dev-mode'>
             <Checkbox
