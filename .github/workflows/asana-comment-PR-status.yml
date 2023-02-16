@@ -8,7 +8,7 @@ on:
 jobs:
   create-comment-in-asana-task-job:
     runs-on: ubuntu-latest
-    name: Create a comment in Asana Task
+    name: 1Create a comment in Asana Task
     steps:
       - name: Create a comment
         uses: Asana/comment-on-task-github-action@latest
@@ -16,7 +16,5 @@ jobs:
         with:
           asana-secret: ${{ secrets.ASANA_SECRET }}
           comment-text: "{{PR_NAME}} is {{PR_STATE}}: {{PR_URL}}"
-          allowed-projects: |
-            1201849173362898
       - name: Get status
         run: echo "PR status is ${{ steps.createComment.outputs.status }}"
