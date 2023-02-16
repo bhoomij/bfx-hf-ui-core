@@ -14,7 +14,7 @@ jobs:
         uses: Asana/comment-on-task-github-action@latest
         id: createComment
         with:
-          asana-secret: ${{ secrets.ASANA }}
+          asana-secret: ${{ secrets.ASANA_SECRET }}
           comment-text: "{{PR_NAME}} is {{PR_STATE}}: {{PR_URL}}"
           allowed-projects: |
             1201849173362898
