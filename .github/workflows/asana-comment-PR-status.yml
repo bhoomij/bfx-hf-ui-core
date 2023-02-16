@@ -2,7 +2,7 @@ name: Asana task status update workflow
 
 on:
   pull_request:
-    branches: [main]
+    branches: [staging]
     types: [opened, closed, reopened]
 
 jobs:
@@ -15,6 +15,6 @@ jobs:
         id: createComment
         with:
           asana-secret: ${{ secrets.ASANA_SECRET }}
-          comment-text: "{{PR_NAME}} is : {{PR_SENDER}}: {{PR_OWNER}}: {{PR_STATE}}: {{PR_URL}}"
+          comment-text: "{{PR_NAME}} is : ${{ github.event.pull_request.user.login }} : ${{ github.actor }} : {{PR_STATE}}: {{PR_URL}}"
       - name: Get status
         run: echo "PR status is ${{ steps.createComment.outputs.status }}"
