@@ -15,6 +15,6 @@ jobs:
         id: createComment
         with:
           asana-secret: ${{ secrets.ASANA_SECRET }}
-          comment-text: "{{PR_NAME}} is : ${{ github.event.pull_request.user.login }} : ${{ github.actor }} : {{PR_STATE}}: {{PR_URL}}"
+          comment-text: "{{PR_NAME}} is1 : ${{ github.event.pull_request.user.login }} /n : ${{ github.actor }} : {{PR_STATE}}: {{PR_URL}}"
       - name: Get status
         run: echo "PR status is ${{ steps.createComment.outputs.status }}"
